@@ -1,35 +1,50 @@
 /**
- * Student Grade Analyzer
+ * Stock Trading Profit Calculator
  *
- * You are analyzing student test scores across multiple subjects. Each score record
- * contains a student name and their score. Your task is to find which student has
- * the highest average score across all their tests and return that student's name.
+ * You have access to historical stock prices for a single stock over several days.
+ * You want to maximize your profit by buying on one day and selling on a later day.
+ * You can only make one transaction (one buy + one sell), and you must buy before you sell.
  *
- * Input: An array of score records, where each record is an object with:
- *   - student: string (the student's name)
- *   - score: number (the test score, between 0 and 100 inclusive)
+ * Given an array of prices where prices[i] represents the stock price on day i,
+ * return the maximum profit you can achieve. If no profit is possible, return 0.
  *
- * Output: A string representing the name of the student with the highest average score.
+ * Input:
+ * - prices: number[] - Array of daily stock prices (non-negative integers)
+ *   - Guaranteed to have at least 1 element
+ *   - Prices can be in any order (can go up or down)
  *
- * Invariants:
- *   - If the array is empty, return an empty string
- *   - If there is a tie for highest average, return the student whose name appeared first in the input
- *   - Student names are case-sensitive
- *   - All scores are non-negative integers
+ * Output:
+ * - number - Maximum profit achievable, or 0 if no profit possible
  *
  * Examples:
- *   Input: [
- *     { student: "Alice", score: 85 },
- *     { student: "Bob", score: 90 },
- *     { student: "Alice", score: 95 }
- *   ]
- *   Output: "Alice" (average: 90, Bob's average: 90, but Alice appeared first)
  *
- *   Input: []
- *   Output: ""
+ * Example 1:
+ *   Input: [7, 1, 5, 3, 6, 4]
+ *   Output: 5
+ *   Explanation: Buy on day 1 (price = 1), sell on day 4 (price = 6), profit = 6 - 1 = 5.
+ *
+ * Example 2:
+ *   Input: [7, 6, 4, 3, 1]
+ *   Output: 0
+ *   Explanation: Prices only decrease, so no profit is possible.
+ *
+ * Example 3:
+ *   Input: [2, 4, 1, 7, 5]
+ *   Output: 6
+ *   Explanation: Buy on day 2 (price = 1), sell on day 3 (price = 7), profit = 7 - 1 = 6.
  */
 
-export function findTopStudent(scores: Array<{ student: string; score: number }>): string {
+export function maxStockProfit(prices: number[]): number {
   // TODO: Implement this function
-  throw new Error("Not implemented");
+  let minPrice = prices[0];
+  let maxProfit = 0;
+
+  for (let i = 1; i < prices.length; i++) {
+    const currentPrice = prices[i];
+    let possibleProfit = currentPrice - minPrice;
+    minPrice = Math.min(currentPrice, minPrice)
+    maxProfit = Math.max(possibleProfit, maxProfit)
+  }
+
+  return maxProfit
 }
